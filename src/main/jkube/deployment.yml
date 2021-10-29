@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: spring-boot
+    provider: jkube
+    version: "1.0"
+    group: com.redhat.training.openshift.hello
+  namespace: pipelines-tutorial
+  name: spring-boot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot
+      provider: jkube
+      group: com.redhat.training.openshift.hello
+  template:
+    metadata:
+      labels:
+        app: spring-boot
+        provider: jkube
+        version: "latest"
+        group: com.redhat.training.openshift.hello
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        envFrom:
+         - configMapRef:
+             name: configmap-hello
+        image: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/spring-boot:1.0
+        imagePullPolicy: IfNotPresent
+        name: spring-boot
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9779
+          name: prometheus
+          protocol: TCP
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        securityContext:
+          privileged: false
