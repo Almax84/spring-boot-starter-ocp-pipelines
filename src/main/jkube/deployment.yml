@@ -3,26 +3,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: spring-boot
-    provider: jkube
-    version: "1.0"
-    group: com.redhat.training.openshift.hello
+    app: spring-boot-demo
   namespace: pipelines-tutorial
-  name: spring-boot
+  name: spring-boot-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-boot
-      provider: jkube
-      group: com.redhat.training.openshift.hello
+      app: spring-boot-demo
   template:
     metadata:
       labels:
-        app: spring-boot
-        provider: jkube
-        version: "latest"
-        group: com.redhat.training.openshift.hello
+        app: spring-boot-demo
     spec:
       containers:
       - env:
@@ -33,9 +25,9 @@ spec:
         envFrom:
          - configMapRef:
              name: configmap-hello
-        image: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/spring-boot:1.0
+        image: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/spring-boot-demo:latest
         imagePullPolicy: IfNotPresent
-        name: spring-boot
+        name: spring-boot-demo
         ports:
         - containerPort: 8080
           name: http
