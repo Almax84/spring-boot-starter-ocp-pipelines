@@ -15,7 +15,7 @@ public class HelloController {
     @GetMapping("/")
     public String index() {
 
-	String startingMessage = "MY FOURTH DEPLOY! \n";
+	String startingMessage = "MY VERY FIRST DEPLOY! \n";
         String hostname = env.getProperty("HOSTNAME");
         String appMsg = env.getProperty("APP_MSG");
         if(!StringUtils.isEmpty(hostname) && !StringUtils.isEmpty(appMsg)){
