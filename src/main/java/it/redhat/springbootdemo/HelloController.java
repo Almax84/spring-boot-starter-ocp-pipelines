@@ -15,16 +15,17 @@ public class HelloController {
     @GetMapping("/")
     public String index() {
 
+	String startingMessage = "MY FOURTH DEPLOY! \n";
         String hostname = env.getProperty("HOSTNAME");
         String appMsg = env.getProperty("APP_MSG");
         if(!StringUtils.isEmpty(hostname) && !StringUtils.isEmpty(appMsg)){
-            return "Greeting from "+hostname+"!!"+" APP_MSG read from environment is: "+appMsg;
+            return startingMessage + "Greeting from "+hostname+"!!"+" APP_MSG read from environment is: "+appMsg;
         }
         else if(!StringUtils.isEmpty(hostname)){
-            return "Greeting from "+hostname+"!!";
+            return startingMessage + "Greeting from "+hostname+"!!";
         }
 
-        return "Greetings from Spring Boot!";
+        return startingMessage + "Greetings from Spring Boot!";
     }
 
 }
