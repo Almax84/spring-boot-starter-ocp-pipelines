@@ -13,7 +13,7 @@ public class HelloController {
     private Environment env;
 
     @GetMapping("/hello")
-    public String index(Model model) {
+    public String hello(Model model) {
 
 	String startingMessage = "MY VERY FIRST DEPLOY! \n";
         String hostname = env.getProperty("HOSTNAME");
@@ -26,6 +26,13 @@ public class HelloController {
 //        }
 
         model.addAttribute("message",startingMessage);
+        return "hello";
+    }
+
+    @GetMapping("/")
+    public String index(Model model) {
+
+        model.addAttribute("message","WELCOME TO THE TEST APP!");
         return "hello";
     }
 
